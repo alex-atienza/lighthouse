@@ -1,0 +1,309 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* palette as RGB triplets so Tailwind opacity modifiers work */
+  --paper: 247 243 236;
+  --paper-raised: 255 255 255;
+  --paper-sunken: 241 234 222;
+  --ink: 28 24 21;
+  --ink-soft: 92 83 74;
+  --ink-mute: 138 127 114;
+  --ink-faint: 184 174 159;
+  --line: 231 223 211;
+  --line-strong: 217 207 191;
+  --sidebar: 239 233 223;
+  --sidebar-sel: 237 226 210;
+  --rust: 180 69 31;
+  --rust-dark: 143 52 23;
+  --rust-soft: 217 140 106;
+  --rust-tint: 243 224 212;
+  --rust-wash: 251 239 231;
+  --beacon: 201 162 39;
+  --beacon-soft: 227 199 102;
+  --beacon-deep: 154 122 24;
+  --sent-pos: 62 125 90;
+  --sent-pos-tint: 226 238 230;
+  --sent-neu: 169 156 139;
+  --sent-neu-tint: 237 231 221;
+  --sent-neg: 193 69 42;
+  --sent-neg-tint: 245 222 214;
+  --watch: 176 125 24;
+  --ease-spring: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.dark {
+  --paper: 20 16 12;
+  --paper-raised: 30 24 19;
+  --paper-sunken: 42 34 28;
+  --ink: 243 237 227;
+  --ink-soft: 202 190 174;
+  --ink-mute: 156 144 130;
+  --ink-faint: 110 101 88;
+  --line: 58 48 40;
+  --line-strong: 78 66 55;
+  --sidebar: 26 21 16;
+  --sidebar-sel: 46 37 29;
+  --rust: 214 106 66;
+  --rust-dark: 180 69 31;
+  --rust-soft: 217 140 106;
+  --rust-tint: 74 40 28;
+  --rust-wash: 52 32 24;
+  --beacon: 227 199 102;
+  --beacon-soft: 240 220 150;
+  --beacon-deep: 201 162 39;
+  --sent-pos: 90 176 130;
+  --sent-pos-tint: 30 46 38;
+  --sent-neu: 169 156 139;
+  --sent-neu-tint: 44 40 34;
+  --sent-neg: 224 118 90;
+  --sent-neg-tint: 58 34 28;
+  --watch: 220 183 94;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-optical-sizing: auto;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'ss01';
+    /* keeper's light + faint warm paper grain */
+    background-image:
+      radial-gradient(115% 75% at 12% -8%, rgba(180, 69, 31, 0.05), transparent 55%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.11 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    text-wrap: balance;
+    font-variation-settings: 'SOFT' 40;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  ::selection {
+    background: rgba(180, 69, 31, 0.18);
+    color: #1c1815;
+  }
+  :where(a, button, input, select, textarea, [tabindex]:not([tabindex='-1'])):focus-visible {
+    outline: 2px solid rgba(180, 69, 31, 0.55);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-paper-raised border border-line rounded-lg;
+    box-shadow:
+      0 1px 2px rgba(28, 24, 21, 0.04),
+      0 4px 12px -4px rgba(28, 24, 21, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  .pill {
+    @apply inline-flex items-center gap-1 rounded-full text-xs font-medium px-2.5 py-1;
+  }
+  .skeleton {
+    background: linear-gradient(90deg, #efe9df 25%, #f5f0e8 37%, #efe9df 63%);
+    background-size: 800px 100%;
+    @apply animate-shimmer rounded;
+  }
+  /* lit rust gradient fill (raised) */
+  .fill-rust {
+    background: linear-gradient(180deg, #c1512a, #b4451f);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 1px 2px rgba(143, 52, 23, 0.35);
+  }
+  /* recessed track well */
+  .well {
+    box-shadow: inset 0 1px 2px rgba(28, 24, 21, 0.06);
+  }
+}
+
+/* thin warm scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d9cfbf transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #d9cfbf;
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+/* --- motion / fx keyframes --- */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes beam-sweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-40%) rotate(9deg);
+  }
+  12% {
+    opacity: 0.95;
+  }
+  88% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(150%) rotate(9deg);
+  }
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.04);
+  }
+}
+@keyframes draw-in {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+@keyframes flow-x {
+  0% {
+    transform: translateX(-4px);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(4px);
+    opacity: 0.3;
+  }
+}
+@keyframes toast-out {
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+}
+@keyframes beacon-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.reveal-up {
+  animation: reveal-up 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+/* --- Dark theme: tweaks the tokens alone can't express --- */
+.dark {
+  color-scheme: dark;
+}
+.dark body {
+  background-image: radial-gradient(115% 75% at 12% -8%, rgba(214, 106, 66, 0.08), transparent 55%);
+}
+.dark .card {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    0 12px 28px -8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.dark .stat-value {
+  text-shadow: 0 0 24px rgba(227, 199, 102, 0.25);
+}
+.dark .recharts-cartesian-grid line {
+  stroke: rgba(255, 255, 255, 0.07);
+}
+.dark .recharts-text {
+  fill: #9c9082;
+}
+.dark ::selection {
+  background: rgba(227, 199, 102, 0.26);
+  color: #f3ede3;
+}
+.dark * {
+  scrollbar-color: #3a3128 transparent;
+}
+.dark *::-webkit-scrollbar-thumb {
+  background: #3a3128;
+}
+/* accent chips defined with literal hexes */
+.dark .bg-\[\#E4EAF0\] {
+  background-color: #1f2b38;
+}
+.dark .text-\[\#3B5878\] {
+  color: #a8c6e6;
+}
+.dark .bg-\[\#F4E8CE\] {
+  background-color: #3a3016;
+}
+.dark .text-\[\#8A6414\] {
+  color: #dcb75e;
+}
+.dark .bg-\[\#C9A227\] {
+  background-color: #e3c766;
+}
+.dark .bg-\[\#3B5878\] {
+  background-color: #8fb3dd;
+}
+/* loading skeletons ride the dark surface, not the light one */
+.dark .skeleton {
+  background: linear-gradient(90deg, #241d17 25%, #2f261e 37%, #241d17 63%);
+  background-size: 800px 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

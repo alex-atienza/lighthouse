@@ -1,0 +1,11 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+.env
+
+# generated from vite.config.ts by tsc -b (regenerated on every build)
+vite.config.js
+vite.config.d.ts
